@@ -22,17 +22,13 @@ dictionary = {
     "file": "файл"
 }
 
-# print(random.sample(list(dictionary.keys()), 4))
-# print(random.choice(list(dictionary.values())))
-
 
 print('Hello, zluuba!')
+
+
 while True:
     answers = random.sample(list(dictionary.keys()), 4)
     question = random.choice(answers)
-    # print(answers)
-
-
     print(f'What is answer "{question}"?')
     for pos, answer in enumerate(answers):
         print(f"{pos + 1}. {dictionary[answer]}")
@@ -42,3 +38,49 @@ while True:
         print('Correct')
     else:
         print(f'Incorrect. Correct answer is {dictionary[question]}')
+
+# day2.
+
+
+'''
+    переходим в телеграм, переходим к BotFather, общаемся с ботом, создается токен
+    библиотека: python-telegram-bot - устанавливаем
+    библиотека: from telegram.ext, import Updater, MessageHandler, Filters
+    api.telegram.org // подробнее о ботах, документация
+    
+    TOKEN = ...
+    
+    # пишешь текст, бот возвращает этот текст
+    def parrot(update, context):
+        context.bot.send_message(update.effective_chat.id, update.effective_message.text)
+        
+    
+    bot = Updater(token=TOKEN)
+    bot.dispatcher.add_handler(MessageHandler(Filters.text, parrot))
+    bot.start_polling()
+    
+    --------------------------------------
+    from telegram import keyboard
+    
+    # пишешь текст, бот возвращает этот текст
+    def start_game(update, context):
+    chat_id = update.effective_chat.id
+    
+    context.bot.send_message(update.effective_chat.id, "Hello, zluuba.")
+    
+    answers = random.sample(list(dictionary.keys()), 4)
+    question = random.choice(answers)
+    
+    keyboard = ReplyKeyboardMarkup.from_column(answers, resize_keyboard = True, one_time_keyboard = True)
+    
+    context.bot.send_message(update.effective_chat.id, f"What is answer {question}", reply_markup=keyboard)
+        
+    
+    bot = Updater(token=TOKEN)
+    bot.dispatcher.add_handler(CommandHandler('start', start_game))
+    bot.dispatcher.add_handler(MessageHandler(Filters.text, parrot))
+    bot.start_polling()
+
+'''
+
+
